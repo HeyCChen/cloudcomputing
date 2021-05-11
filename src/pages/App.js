@@ -11,7 +11,6 @@ function App() {
   const [searchfield, setSearchfield] = useState('');
   const [formData, setFormData] = useState('');
   const [isAdding, SetIsAdding] = useState(false);
-  // const [users, setUsers] = useState([]);
 
   useEffect(
     () => {
@@ -59,7 +58,7 @@ function App() {
   else {
     return (
       <div className="tc">
-        <h1 className="f1">RobotFriends</h1>
+        <h1>Robots</h1>
         <SearchBox searchChange={onSearchChange} />
         <AddBox addChange={onAddChange} />
         <button

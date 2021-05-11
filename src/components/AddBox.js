@@ -1,5 +1,3 @@
-// import react from "react";
-
 function AddBox({ addChange }) {
     return (
         <div className="pa2">
