@@ -1,10 +1,11 @@
-function AddBox({ addChange }) {
+function AddBox(props) {
     return (
         <div className="pa2">
             <input
                 className="pa3 ba b--green bg-lightest-blue"
-                type="text" placeholder="Add Robots"
-                onChange={addChange} />
+                type="search" placeholder="Add Robots"
+                value={props.value}
+                onChange={props.addChange} />
         </div>
     );
 }

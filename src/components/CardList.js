@@ -4,7 +4,11 @@ import Card from "./Card";
 function CardList({ robots }) {
     const cardsArray = robots.map(
         (uesr, i) => {
-            return <Card key={i} id={robots[i].id} name={robots[i].name} />
+            return <Card key={i}
+                // id={robots[i].id}
+                // name={robots[i].name}
+                name={robots[i]}
+            />
         })
     return (
         <div>
