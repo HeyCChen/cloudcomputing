@@ -1,18 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CardList from "../components/CardList";
 import SearchBox from "../components/SearchBox";
 import AddBox from '../components/AddBox';
 import Scroll from "../components/Scroll";
-import testJson from './1.json';
+import axios from 'axios';
 
 function App() {
 
-  const testArray = testJson.map(json => { return [json.name].toString() })
-  const [robots, setRobots] = useState(testArray);
+  const [robots, setRobots] = useState([]);
   const [searchfield, setSearchfield] = useState('');
   const [formData, setFormData] = useState('');
   const [isExsited, setIsExsited] = useState(true);
   const [isEmpty, setEmpty] = useState(true);
+
+  useEffect(() => {
+    axios.get('/mock/1.json')
+      .then(
+        (res) => {
+          // console.log(res)
+          const testArray = res.data.map(data => { return [data.name].toString() })
+          setRobots(testArray)
+        }
+      )
+      .catch(
+        (error) => { console.log(error) }
+      )
+  }, []);
 
   const onSearchChange = (event) => {
     setSearchfield(event.target.value);
