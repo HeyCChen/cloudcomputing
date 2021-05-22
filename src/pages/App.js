@@ -3,10 +3,8 @@ import CardList from "../components/CardList";
 import SearchBox from "../components/SearchBox";
 import AddBox from '../components/AddBox';
 import Scroll from "../components/Scroll";
-import axios from 'axios';
 
 function App() {
-
   const [robots, setRobots] = useState([]);
   const [searchfield, setSearchfield] = useState('');
   const [formData, setFormData] = useState('');
@@ -14,13 +12,22 @@ function App() {
   const [isEmpty, setEmpty] = useState(true);
 
   useEffect(() => {
-    axios.get('/mock/1.json')
+    const time = new Date();
+    fetch(
+      `http://121.37.143.35/database?type=ret&text=${time}`,
+      {
+        method: 'GET',
+      }
+    )
       .then(
-        (res) => {
-          // console.log(res)
-          const testArray = res.data.map(data => { return [data.name].toString() })
+        (res) => res.json()
+      )
+      .then(
+        (data) => {
+          console.log(data)
+          const testArray = data.map(data => { return [data.name].toString() })
           setRobots(testArray)
-        }
+        },
       )
       .catch(
         (error) => { console.log(error) }
@@ -53,16 +60,18 @@ function App() {
       setEmpty(true);
       setIsExsited(true);
       fetch(
-        // url,
+        `http://121.37.143.35/database?type=add&text=${formData}`,
         {
-          method: 'POST',
-          body: JSON.stringify(formData),
+          method: 'GET',
         }
       )
-        .then(res => res.json())
-        .then(res => {
-          console.log(res);
-        })
+        .then(
+          (res) => res.json()
+        )
+        .then(console.log('success!'))
+        .catch(
+          (error) => { console.log(error) }
+        )
     }
     else if (formData === '') {
       setEmpty(false)
@@ -71,6 +80,28 @@ function App() {
       setIsExsited(false);
     }
   };
+
+  const handleDelete = (i) => {
+    console.log(robots[i])
+    const robotsCop = robots.filter(item => {
+      return item !== robots[i]
+    })
+    setRobots(robotsCop)
+    const delRobot = robots[i]
+    fetch(
+      `http://121.37.143.35/database?type=del&text=${delRobot}`,
+      {
+        method: 'GET',
+      }
+    )
+      .then(
+        (res) => res.json()
+      )
+      .then(console.log('success!'))
+      .catch(
+        (error) => { console.log(error) }
+      )
+  }
 
   const filteredRobots = robots.filter(item => {
     return item.includes(searchfield)
@@ -97,7 +128,7 @@ function App() {
           <label hidden={isEmpty} style={{ color: 'red', fontSize: '16' }}><p>添加不能为空！</p></label>
         </div>
         <Scroll>
-          <CardList robots={filteredRobots} />
+          <CardList robots={filteredRobots} handleDelete={i => { handleDelete(i) }} />
         </Scroll>
       </div>
     );

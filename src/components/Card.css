@@ -1,0 +1,11 @@
+.button {
+    opacity: 0;
+}
+
+.card:hover>button {
+    height: 20px;
+    font-size: 8px;
+    width: 100%;
+    border: none;
+    opacity: 1;
+}

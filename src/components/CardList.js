@@ -1,13 +1,13 @@
 import React from 'react';
 import Card from "./Card";
 
-function CardList({ robots }) {
-    const cardsArray = robots.map(
+function CardList(props) {
+    const cardsArray = props.robots.map(
         (uesr, i) => {
-            return <Card key={i}
-                // id={robots[i].id}
-                // name={robots[i].name}
-                name={robots[i]}
+            return <Card
+                key={i}
+                name={props.robots[i]}
+                handleDel={()=>{props.handleDelete(i)}}
             />
         })
     return (
