@@ -121,7 +121,7 @@ function App() {
           type='button'
           onClick={handleAdd}
         >
-          Add
+          添加
         </button>
         <div >
           <label hidden={isExsited} style={{ color: 'red', fontSize: '16' }}><p>添加失败！Robot已存在！</p></label>
